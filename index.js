@@ -3,6 +3,9 @@ const hbs = require("hbs");
 const wax = require("wax-on");
 require("dotenv").config();
 
+// setup Objection
+require("./db");
+
 // create an instance of express app
 let app = express();
 
@@ -19,19 +22,19 @@ wax.setLayoutPath("./views/layouts");
 // enable forms
 app.use(
   express.urlencoded({
-    extended: false
+    extended: true
   })
 );
 
 const landingRoutes = require('./routes/landing.js');
-
+const productRoutes = require('./routes/product.js');
 
 async function main() {
     // if the requested url
     // begins with '/', send it
     // to the landingRoutes router
     app.use('/', landingRoutes);
-
+    app.use('/products', productRoutes);
 }
 
 main();

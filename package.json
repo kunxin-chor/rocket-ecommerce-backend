@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "knex": "^3.1.0",
+    "mysql2": "^3.14.1",
+    "objection": "^3.1.5"
+  },
+  "name": "rocket-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "To start mysql, in the terminal, type in `mysql -u root`",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "knex": "node node_modules/knex/bin/cli"
+  },
+  "author": "",
+  "license": "ISC"
+}

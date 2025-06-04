@@ -1,12 +1,13 @@
 {
   "dependencies": {
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "hbs": "^4.2.0",
+    "express-ejs-layouts": "^2.5.1",
     "knex": "^3.1.0",
     "mysql2": "^3.14.1",
-    "objection": "^3.1.5",
-    "wax-on": "^1.2.2"
+    "objection": "^3.1.5"
+    
   },
   "name": "rocket-ecommerce-backend",
   "version": "1.0.0",

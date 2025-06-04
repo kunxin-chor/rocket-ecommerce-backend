@@ -1,6 +1,6 @@
 const express = require("express");
-const hbs = require("hbs");
-const wax = require("wax-on");
+const ejs = require("ejs");
+const expressEjsLayouts = require("express-ejs-layouts");
 require("dotenv").config();
 
 // setup Objection
@@ -10,14 +10,15 @@ require("./db");
 let app = express();
 
 // set the view engine
-app.set("view engine", "hbs");
+app.set("view engine", "ejs");
 
 // static folder
 app.use(express.static("public"));
 
-// setup wax-on
-wax.on(hbs.handlebars);
-wax.setLayoutPath("./views/layouts");
+// setup express-ejs-layouts
+app.use(expressEjsLayouts);
+app.set("layout", "layouts/layout");
+
 
 // enable forms
 app.use(
@@ -29,15 +30,12 @@ app.use(
 const landingRoutes = require('./routes/landing.js');
 const productRoutes = require('./routes/product.js');
 
-async function main() {
-    // if the requested url
-    // begins with '/', send it
-    // to the landingRoutes router
-    app.use('/', landingRoutes);
-    app.use('/products', productRoutes);
-}
 
-main();
+app.use('/', landingRoutes);
+app.use('/products', productRoutes);
+
+
+
 
 app.listen(3000, () => {
   console.log("Server has started");

@@ -1,0 +1,9 @@
+<%- contentFor("title", "Delete Product") %>
+
+<%- contentFor("body") %>
+<h1>Delete Product</h1>
+<p>Are you sure you want to delete this product?</p>
+<form method="POST">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="/products" class="btn btn-secondary">Cancel</a>
+</form>

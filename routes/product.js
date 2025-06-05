@@ -39,4 +39,49 @@ router.post('/create', async (req, res) => {
       })
 });
 
+router.get('/:product_id/update', async (req, res) => {
+    const product = await Product.query().findById(req.params.product_id);
+    const productForm = createProductForm();
+    // populate the form with values from the product
+    productForm.fields.name.value = product.name;
+    productForm.fields.cost.value = product.cost;
+    productForm.fields.description.value = product.description;
+    
+    res.render("products/update", {
+        productForm: productForm.toHTML(bootstrapField),
+        product
+    })
+})
+
+router.post('/:product_id/update', async (req, res) => {
+    const product = await Product.query().findById(req.params.product_id);
+    const productForm = createProductForm();
+    productForm.handle(req,{
+        success: async (form) => {
+            await Product.query().update({
+                name: form.data.name,
+                cost: form.data.cost,
+                description: form.data.description
+            }).where("id", req.params.product_id);
+            res.redirect("/products");
+        },
+        error: (form) => {
+            res.render("products/update", {
+                productForm: form.toHTML(bootstrapField),
+                product
+            })
+        }
+    })
+})
+
+router.get('/:product_id/delete', async (req, res) => {
+    const product = await Product.query().findById(req.params.product_id);
+    res.render("products/delete", { product });
+})
+
+router.post('/:product_id/delete', async (req, res) => {
+    await Product.query().deleteById(req.params.product_id);
+    res.redirect("/products");
+})
+
 module.exports = router;

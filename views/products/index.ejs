@@ -4,7 +4,7 @@
 <% if (products && products.length) { %>
   
     <h1>Products</h1>
-    <a href="/products/new" class="btn btn-primary">
+    <a href="/products/create" class="btn btn-primary">
      Add New Product
     </a>
   
@@ -15,6 +15,7 @@
           <th>Name</th>
           <th>Description</th>
           <th class="text-end">Price</th>          
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,10 @@
             <td><strong><%= product.name %></strong></td>
             <td><%= product.description %></td>
             <td class="text-end">$<%= (product.cost/100).toFixed(2) %></td>         
+            <td>
+                <a href="/products/<%= product.id %>/update" class="btn btn-primary btn-sm">Update</a>
+                <a href="/products/<%= product.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+            </td>
           </tr>
         <% }); %>
       </tbody>

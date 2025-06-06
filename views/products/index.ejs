@@ -15,6 +15,7 @@
           <th>Name</th>
           <th>Description</th>
           <th class="text-end">Price</th>          
+          <th>Category</th>
           <th></th>
         </tr>
       </thead>
@@ -24,6 +25,7 @@
             <td><strong><%= product.name %></strong></td>
             <td><%= product.description %></td>
             <td class="text-end">$<%= (product.cost/100).toFixed(2) %></td>         
+            <td><%= product.category.name %></td>
             <td>
                 <a href="/products/<%= product.id %>/update" class="btn btn-primary btn-sm">Update</a>
                 <a href="/products/<%= product.id %>/delete" class="btn btn-danger btn-sm">Delete</a>

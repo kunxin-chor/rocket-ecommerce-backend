@@ -17,12 +17,37 @@
 
     <div class="container">
 
+        <% if (success_messages.length> 0) { %>
+            <div class="alert alert-success">
+                <ul>
+                    <% success_messages.forEach(message=> { %>
+                        <li>
+                            <%= message %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+            <% } %>
+
+        <% if (error_messages.length> 0) { %>
+            <div class="alert alert-danger">
+                <ul>
+                    <% error_messages.forEach(message=> { %>
+                        <li>
+                            <%= message %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+        <% } %>
+
         <!-- bootstrap 5 navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,11 +62,8 @@
                 </div>
             </div>
         </nav>
-
-
         <%- body %>
     </div>
-
 
 </body>
 

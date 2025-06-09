@@ -7,3 +7,5 @@ const environment = process.env.NODE_ENV || "development";
 const knexInstance = knex(knexConfig[environment]);
 
 objection.Model.knex(knexInstance);
+
+module.exports = knexInstance;

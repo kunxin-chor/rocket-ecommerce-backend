@@ -29,7 +29,9 @@ app.use(
 
 const landingRoutes = require('./routes/landing.js');
 const productRoutes = require('./routes/product.js');
+const session = require('./sessions/index.js');
 
+session(app);
 
 app.use('/', landingRoutes);
 app.use('/products', productRoutes);

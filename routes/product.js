@@ -110,7 +110,7 @@ router.post('/create', checkIfAuthenticated, async (req, res) => {
 });
 
 router.get('/:product_id/update', async (req, res) => {
-    const product = await getProductById(req.params.product_id);
+    const product = await productDal.getProductById(req.params.product_id);
     const categories = await productDal.getAllCategories();
     const categoriesForForm = categories.map(category => [category.id, category.name]);
     const tags = await productDal.getAllTags();
@@ -133,7 +133,7 @@ router.get('/:product_id/update', async (req, res) => {
 })
 
 router.post('/:product_id/update', async (req, res) => {
-    const product = await getProductById(req.params.product_id);
+    const product = await productDal.getProductById(req.params.product_id);
     const categories = await productDal.getAllCategories();
     const categoriesForForm = categories.map(category => [category.id, category.name]);
     const tags = await productDal.getAllTags();
@@ -179,12 +179,12 @@ router.post('/:product_id/update', async (req, res) => {
 })
 
 router.get('/:product_id/delete', async (req, res) => {
-    const product = await Product.query().findById(req.params.product_id);
+    const product = await productDal.getProductById(req.params.product_id);
     res.render("products/delete", { product });
 })
 
 router.post('/:product_id/delete', async (req, res) => {
-    await deleteProduct(req.params.product_id);
+    await productDal.deleteProduct(req.params.product_id);
     req.flash("success", "Product deleted successfully");
     res.redirect("/products");
 })

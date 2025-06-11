@@ -30,7 +30,12 @@
           <td><%= item.product.name %></td>
           <td><%= item.product.description %></td>
           <td class="text-end">$<%= (item.product.cost/100).toFixed(2) %></td>
-          <td><%= item.quantity %></td>
+          <td>
+  <form method="POST" action="/cart/product/<%= item.product.id %>/update-quantity" style="display:inline; width:100px;">
+    <input type="number" name="quantity" value="<%= item.quantity %>" min="1" style="width:60px; display:inline-block;" required />
+    <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+  </form>
+</td>
           <td class="text-end">$<%= ((item.product.cost * item.quantity)/100).toFixed(2) %></td>
           <td>
             <!-- Add remove/update quantity buttons here if needed -->

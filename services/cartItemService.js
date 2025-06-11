@@ -51,12 +51,34 @@ const getCartSummary = async (userId) => {
     return { totalQuantity, totalCost };
 };
 
+// Get cart items and total cost for a user's cart
+const getCartWithTotal = async (userId) => {
+    const items = await getCartItemsByUserId(userId);
+    let totalCost = 0;
+    for (const item of items) {
+        totalCost += (item.product.cost || 0) * item.quantity;
+    }
+    return { items, totalCost };
+};
+
+// Get total cost for a user's cart
+const getCartTotalCost = async (userId) => {
+    const cartItems = await getCartItemsByUserId(userId);
+    let totalCost = 0;
+    for (const item of cartItems) {
+        totalCost += (item.product.cost || 0) * item.quantity;
+    }
+    return totalCost;
+};
+
 module.exports = {
     addItemToCart,
     getCartItemsByUserId,
     updateCartItemQuantity,
     removeCartItem,
     clearCart,
-    getCartSummary
+    getCartSummary,
+    getCartTotalCost,
+    getCartWithTotal
 };
 

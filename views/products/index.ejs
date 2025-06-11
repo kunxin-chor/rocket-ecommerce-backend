@@ -41,6 +41,12 @@
             <td>
                 <a href="/products/<%= product.id %>/update" class="btn btn-primary btn-sm">Update</a>
                 <a href="/products/<%= product.id %>/delete" class="btn btn-danger btn-sm">Delete</a>
+                <% if (locals.user) { %>
+                <form method="POST" action="/cart/product/<%= product.id %>/add" style="display:inline;">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                </form>
+                <% } %>
             </td>
           </tr>
         <% }); %>

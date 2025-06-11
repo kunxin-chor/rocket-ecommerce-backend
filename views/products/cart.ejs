@@ -1,0 +1,53 @@
+<%- contentFor("title", "Your Cart") %>
+
+<%- contentFor("body") %>
+
+<h1>Your Shopping Cart</h1>
+
+<% if (cartItems && cartItems.length) { %>
+  <table class="table mt-3">
+    <thead class="table-light">
+      <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Description</th>
+        <th class="text-end">Price</th>
+        <th>Quantity</th>
+        <th class="text-end">Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cartItems.forEach(function(item) { %>
+        <tr>
+          <td>
+            <% if (item.product.image_url) { %>
+              <img src="<%= item.product.image_url %>" alt="<%= item.product.name %>" style="width:60px; height:auto; object-fit:cover;" />
+            <% } else { %>
+              <span class="text-muted">No image</span>
+            <% } %>
+          </td>
+          <td><%= item.product.name %></td>
+          <td><%= item.product.description %></td>
+          <td class="text-end">$<%= (item.product.cost/100).toFixed(2) %></td>
+          <td><%= item.quantity %></td>
+          <td class="text-end">$<%= ((item.product.cost * item.quantity)/100).toFixed(2) %></td>
+          <td>
+            <!-- Add remove/update quantity buttons here if needed -->
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4" class="text-end">Total:</th>
+        <th class="text-end">$<%= (totalCost/100).toFixed(2) %></th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+<% } else { %>
+  <div class="text-center py-5">
+    <h2>Your cart is empty</h2>
+  </div>
+<% } %>

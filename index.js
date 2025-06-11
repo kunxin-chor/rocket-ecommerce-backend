@@ -44,8 +44,8 @@ app.use('/', landingRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/cloudinary', cloudinaryRoutes);
-
-
+const cartRoutes = require('./routes/cart.js');
+app.use('/cart', cartRoutes);
 
 app.listen(3000, () => {
   console.log("Server has started");

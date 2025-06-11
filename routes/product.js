@@ -110,7 +110,7 @@ router.post('/create', checkIfAuthenticated, async (req, res) => {
 });
 
 router.get('/:product_id/update', async (req, res) => {
-    const product = await getProductById(req.params.product_id);
+    const product = await productDal.getProductById(req.params.product_id);
     const categories = await productDal.getAllCategories();
     const categoriesForForm = categories.map(category => [category.id, category.name]);
     const tags = await productDal.getAllTags();

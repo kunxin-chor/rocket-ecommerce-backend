@@ -34,6 +34,7 @@ const landingRoutes = require('./routes/landing.js');
 const productRoutes = require('./routes/product.js');
 const userRoutes = require('./routes/user.js');
 const cloudinaryRoutes = require('./routes/cloudinary.js');
+const cartRoutes = require('./routes/cart.js');
 const session = require('./sessions/index.js');
 const globalMiddlewares = require('./global-middlewares/index.js');
 
@@ -44,7 +45,7 @@ app.use('/', landingRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/cloudinary', cloudinaryRoutes);
-const cartRoutes = require('./routes/cart.js');
+
 app.use('/cart', cartRoutes);
 
 app.listen(3000, () => {

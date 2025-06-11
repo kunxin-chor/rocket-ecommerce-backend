@@ -1,0 +1,11 @@
+<%- contentFor("title", "Register") %>
+
+<%- contentFor("body") %>
+<h1>Register</h1>
+<form method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <%- userForm %>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>

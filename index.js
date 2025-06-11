@@ -27,15 +27,23 @@ app.use(
   })
 );
 
+// enable json
+app.use(express.json());
+
 const landingRoutes = require('./routes/landing.js');
 const productRoutes = require('./routes/product.js');
+const userRoutes = require('./routes/user.js');
+const cloudinaryRoutes = require('./routes/cloudinary.js');
 const session = require('./sessions/index.js');
+const globalMiddlewares = require('./global-middlewares/index.js');
 
 session(app);
+globalMiddlewares(app);
 
 app.use('/', landingRoutes);
 app.use('/products', productRoutes);
-
+app.use('/users', userRoutes);
+app.use('/cloudinary', cloudinaryRoutes);
 
 
 

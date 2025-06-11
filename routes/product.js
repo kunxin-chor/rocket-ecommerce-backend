@@ -75,7 +75,7 @@ router.post('/create', checkIfAuthenticated, async (req, res) => {
             let transaction = null;
             try {
                 transaction = await Model.startTransaction();
-                const product = await createProduct({
+                const product = await productDal.createProduct({
                     name: form.data.name,
                     cost: form.data.cost,
                     description: form.data.description,

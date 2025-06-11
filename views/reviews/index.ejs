@@ -1,0 +1,24 @@
+<%- include('../partials/messages') %>
+<h2>Reviews for Product <%= productId %></h2>
+
+<ul>
+  <% reviews.forEach(function(review) { %>
+    <li>
+      <strong>User:</strong> <%= review.user ? review.user.username : 'Unknown' %> <br>
+      <strong>Rating:</strong> <%= review.rating %> <br>
+      <strong>Comment:</strong> <%= review.comment %> <br>
+      <em>At: <%= review.created_at ? review.created_at.toLocaleString() : '' %></em>
+    </li>
+  <% }) %>
+</ul>
+
+<h3>Add a Review</h3>
+<form method="POST" action="">
+  <label for="rating">Rating (1-5):</label>
+  <input type="number" min="1" max="5" name="rating" id="rating" required><br>
+  <label for="comment">Comment:</label><br>
+  <textarea name="comment" id="comment" rows="4" cols="40"></textarea><br>
+  <button type="submit">Submit Review</button>
+</form>
+
+<a href="/products/<%= productId %>">Back to Product</a>

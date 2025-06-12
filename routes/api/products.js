@@ -6,27 +6,38 @@ const { createSearchForm, createProductForm } = require('../../forms');
 // GET /api/products - List/search products (stateless, JSON response)
 router.get('/', async (req, res) => {
     try {
-        // Prepare search form with categories/tags for consistent filter parsing (but do not render)
+        
         const categories = await productDal.getAllCategories();
         const categoriesForForm = categories.map(c => [c.id, c.name]);
         const tags = await productDal.getAllTags();
         const tagsForForm = tags.map(t => [t.id, t.name]);
         const searchForm = createSearchForm(categoriesForForm, tagsForForm);
 
-        // Set form values from query params
-        for (const field in searchForm.fields) {
-            if (req.query[field] !== undefined) {
-                searchForm.fields[field].value = req.query[field];
+        searchForm.handle(req, {
+            empty: () => {
+                // No filters provided: return all products or an empty result as appropriate           
+                productDal.getAllProducts()
+                    .then(products => res.json(products))
+                    .catch(err => res.status(500).json({ error: 'Unable to fetch products', details: err.message }));
+            },
+            error: async (form) => {
+                let errors = {};
+                for (let key in form.fields) {
+                    if (form.fields[key].error) {
+                        errors[key] = form.fields[key].error;
+                    }
+                }
+                res.status(400).json(errors);
+            },
+            success: async (form) => {
+                try {                    
+                    const products = await productDal.search(form.data);
+                    res.json(products);
+                } catch (err) {
+                    res.status(500).json({ error: 'Unable to fetch products', details: err.message });
+                }
             }
-        }
-
-        // Use form data for DAL search
-        const searchData = {};
-        for (const field in searchForm.fields) {
-            searchData[field] = searchForm.fields[field].value;
-        }
-        const products = await productDal.search(searchData);
-        res.json(products);
+        });
     } catch (err) {
         res.status(500).json({ error: 'Unable to fetch products', details: err.message });
     }

@@ -17,8 +17,6 @@ httpRouter.use(express.urlencoded({ extended: true }));
 session(httpRouter);
 globalMiddlewares(httpRouter);
 
-
-
 // Mount HTTP (web) routes
 httpRouter.use('/', landingRoutes);
 httpRouter.use('/products', productRoutes);

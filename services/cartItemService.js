@@ -38,18 +38,7 @@ const clearCart = async (userId) => {
     return await CartItemDal.clearCart(userId);
 };
 
-// Get cart summary (total items, total cost)
-const getCartSummary = async (userId) => {
-    const items = await CartItemDal.getCartItemsByUserId(userId);
-    let totalQuantity = 0;
-    let totalCost = 0;
-    for (const item of items) {
-        const product = await CartItemDal.getCartItemByUserAndProduct(userId, item.product_id);
-        totalQuantity += item.quantity;
-        totalCost += (product.cost || 0) * item.quantity;
-    }
-    return { totalQuantity, totalCost };
-};
+
 
 // Get cart items and total cost for a user's cart
 const getCartWithTotal = async (userId) => {
@@ -61,15 +50,7 @@ const getCartWithTotal = async (userId) => {
     return { items, totalCost };
 };
 
-// Get total cost for a user's cart
-const getCartTotalCost = async (userId) => {
-    const cartItems = await getCartItemsByUserId(userId);
-    let totalCost = 0;
-    for (const item of cartItems) {
-        totalCost += (item.product.cost || 0) * item.quantity;
-    }
-    return totalCost;
-};
+
 
 module.exports = {
     addItemToCart,
@@ -77,8 +58,6 @@ module.exports = {
     updateCartItemQuantity,
     removeCartItem,
     clearCart,
-    getCartSummary,
-    getCartTotalCost,
     getCartWithTotal
 };
 

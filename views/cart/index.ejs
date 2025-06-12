@@ -4,7 +4,11 @@
 
 <h1>Your Shopping Cart</h1>
 
-<% if (cartItems && cartItems.length) { %>
+<% if (items && items.length) { %>
+  <form method="POST" action="/stripe/checkout">
+    <button type="submit" class="btn btn-primary">Checkout</button>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  </form>
   <table class="table mt-3">
     <thead class="table-light">
       <tr>
@@ -18,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <% cartItems.forEach(function(item) { %>
+      <% items.forEach(function(item) { %>
         <tr>
           <td>
             <% if (item.product.image_url) { %>
@@ -31,14 +35,18 @@
           <td><%= item.product.description %></td>
           <td class="text-end">$<%= (item.product.cost/100).toFixed(2) %></td>
           <td>
-  <form method="POST" action="/cart/product/<%= item.product.id %>/update-quantity" style="display:inline; width:100px;">
-    <input type="number" name="quantity" value="<%= item.quantity %>" min="1" style="width:60px; display:inline-block;" required />
-    <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
-  </form>
-</td>
+            <form method="POST" action="/cart/product/<%= item.product.id %>/update-quantity" style="display:inline; width:100px;">
+              <input type="number" name="quantity" value="<%= item.quantity %>" min="1" style="width:60px; display:inline-block;" required />
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+            </form>
+          </td>
           <td class="text-end">$<%= ((item.product.cost * item.quantity)/100).toFixed(2) %></td>
           <td>
-            <!-- Add remove/update quantity buttons here if needed -->
+            <form method="POST" action="/cart/product/<%= item.product.id %>/delete" style="display:inline;">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+            </form>
           </td>
         </tr>
       <% }); %>

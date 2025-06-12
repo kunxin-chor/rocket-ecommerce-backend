@@ -1,8 +1,8 @@
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const express = require('express');
 const router = express.Router();
-const cartItemService = require('../services/cartItemService');
-const { checkIfAuthenticated } = require('../middlewares');
+const cartItemService = require('../../services/cartItemService');
+const { checkIfAuthenticated } = require('../../middlewares');
 
 router.post('/checkout', checkIfAuthenticated, async (req, res) => {
     try {

@@ -26,15 +26,15 @@
 
 <script>
 function generateSignature(callback,params_to_sign){
+  // set csrf in axios POST headers
+  axios.defaults.headers.common['X-CSRF-TOKEN'] = '<%= csrfToken %>';
   axios.post('/cloudinary/sign', {
-    paramsToSign: params_to_sign,
-    _csrf: '<%- csrfToken %>'
+    paramsToSign: params_to_sign
   }).then(function(response){
     console.log(response.data);
     callback(response.data);
   })
 }
-
 
 // create the upload widget 
 const myWidget = cloudinary.createUploadWidget({

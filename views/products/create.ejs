@@ -21,18 +21,18 @@
 
 <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 
-<!-- get signature -->
+
 <script>
 function generateSignature(callback,params_to_sign){
+  // set csrf in axios POST headers
+  axios.defaults.headers.common['X-CSRF-TOKEN'] = '<%= csrfToken %>';
   axios.post('/cloudinary/sign', {
     paramsToSign: params_to_sign,
-    _csrf: '<%- csrfToken %>'
   }).then(function(response){
     console.log(response.data);
     callback(response.data);
   })
 }
-
 
 // create the upload widget 
 const myWidget = cloudinary.createUploadWidget({
@@ -55,7 +55,7 @@ const myWidget = cloudinary.createUploadWidget({
 )
 
 
-<!-- add event listener to initalise the widget -->
+// add event listener to initalise the widget
 document.getElementById("upload_widget").addEventListener("click", function(){
     myWidget.open();
   }, false);

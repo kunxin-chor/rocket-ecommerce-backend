@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const cartItemService = require('../services/cartItemService');
-const { checkIfAuthenticated } = require('../middlewares');
+const cartItemService = require('../../services/cartItemService');
+const { checkIfAuthenticated } = require('../../middlewares');
 
 // POST /cart/product/:id/add - Add a product to the cart
 router.post('/product/:id/add', checkIfAuthenticated, async (req, res) => {

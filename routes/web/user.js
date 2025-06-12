@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
-const { createUserForm, createLoginForm, bootstrapField } = require('../forms');
+const User = require('../../models/User');
+const { createUserForm, createLoginForm, bootstrapField } = require('../../forms');
 
 // Number of salt rounds for bcrypt hashing
 const SALT_ROUNDS = 10;

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const productDal = require('../dal/Product');
-const { createProductForm, bootstrapField, createSearchForm } = require('../forms');
+const productDal = require('../../dal/Product');
+const { createProductForm, bootstrapField, createSearchForm } = require('../../forms');
 const { Model } = require('objection');
-const { checkIfAuthenticated } = require('../middlewares');
+const { checkIfAuthenticated } = require('../../middlewares');
 
 // GET /products - View all products (renders HTML)
 router.get('/', async (req, res) => {
@@ -75,7 +75,7 @@ router.post('/create', checkIfAuthenticated, async (req, res) => {
             let transaction = null;
             try {
                 transaction = await Model.startTransaction();
-                const product = await createProduct({
+                const product = await productDal.createProduct({
                     name: form.data.name,
                     cost: form.data.cost,
                     description: form.data.description,

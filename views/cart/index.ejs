@@ -4,7 +4,7 @@
 
 <h1>Your Shopping Cart</h1>
 
-<% if (cartItems && cartItems.length) { %>
+<% if (items && items.length) { %>
   <table class="table mt-3">
     <thead class="table-light">
       <tr>
@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <% cartItems.forEach(function(item) { %>
+      <% items.forEach(function(item) { %>
         <tr>
           <td>
             <% if (item.product.image_url) { %>

@@ -17,8 +17,8 @@ router.post('/product/:id/add', checkIfAuthenticated, async (req, res) => {
 // GET /cart - View cart
 router.get('/', checkIfAuthenticated, async (req, res) => {
     try {
-        const { items: cartItems, totalCost } = await cartItemService.getCartWithTotal(req.session.userId);
-        res.render('cart/index', { cartItems, totalCost });
+        const { items, totalCost } = await cartItemService.getCartWithTotal(req.session.userId);
+        res.render('cart/index', { items, totalCost });
     } catch (err) {
         console.log(err);
         req.flash('error', 'Failed to load cart.');

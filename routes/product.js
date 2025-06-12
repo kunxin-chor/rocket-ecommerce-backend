@@ -144,7 +144,7 @@ router.post('/:product_id/update', async (req, res) => {
             let transaction = null;
             try {
                 transaction = await Model.startTransaction();
-                await updateProduct(req.params.product_id, {
+                await productDal.updateProduct(req.params.product_id, {
                     name: form.data.name,
                     cost: form.data.cost,
                     description: form.data.description,

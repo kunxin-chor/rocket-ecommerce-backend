@@ -10,10 +10,18 @@ const setupGlobalMiddlewares = (app) => {
         next();
     })
 
-    app.use(csrf());
+    const csurfInstance = csrf();
+    app.use(function(req, res, next){
+        if (req.url === '/stripe/process_payment') {
+            return next();
+        }
+        csurfInstance(req, res, next);
+    })
 
     app.use((req, res, next) => {
-        res.locals.csrfToken = req.csrfToken();
+        if (req.csrfToken) {
+            res.locals.csrfToken = req.csrfToken();
+        }
         next();
     })
 

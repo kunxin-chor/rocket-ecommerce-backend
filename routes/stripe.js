@@ -70,4 +70,5 @@ router.get('/error', (req, res) => {
     res.render('stripe/error');
 })
 
+
 module.exports = router;
